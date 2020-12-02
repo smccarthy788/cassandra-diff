@@ -42,6 +42,8 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Days;
 
+import static org.apache.cassandra.diff.JobMetadataDb.Schema.maybeInitialize;
+
 // TODO cache jobsummary
 // TODO fix exception handling
 public class DBService implements Closeable {
@@ -71,6 +73,7 @@ public class DBService implements Closeable {
         cluster = provider.getCluster();
 
         session = cluster.connect();
+        maybeInitialize(session, config.metadataOptions());
         diffKeyspace = config.metadataOptions().keyspace;
         runningJobsStatement = session.prepare(String.format(
             " SELECT job_id " +

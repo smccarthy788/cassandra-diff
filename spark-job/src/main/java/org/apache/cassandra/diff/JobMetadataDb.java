@@ -451,7 +451,7 @@ public class JobMetadataDb {
         }
     }
 
-    static class Schema {
+    public static class Schema {
 
         public static final String TASK_STATUS = "task_status";
         private static final String TASK_STATUS_SCHEMA = "CREATE TABLE IF NOT EXISTS %s.%s (" +
