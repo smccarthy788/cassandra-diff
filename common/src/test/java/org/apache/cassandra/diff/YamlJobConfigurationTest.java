@@ -5,6 +5,9 @@ import org.junit.Test;
 
 import org.hamcrest.CoreMatchers;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import static org.apache.cassandra.diff.ExponentialRetryStrategyProvider.ExponentialRetryStrategy;
 
 public class YamlJobConfigurationTest {
@@ -16,7 +19,7 @@ public class YamlJobConfigurationTest {
             Assert.assertTrue("Keyspace segment is not loaded correctly", kt.keyspace.contains("ks"));
             Assert.assertTrue("Table segment is not loaded correctly", kt.table.contains("tb"));
         });
-        JobConfiguration.RetryOptions retryOptions = jobConfiguration.retryOptions();
+        Map<String,String> retryOptions = jobConfiguration.retryOptions();
         Assert.assertNotNull("retry_options not defined", retryOptions);
         Assert.assertNotNull("impl not defined", retryOptions.get(ExponentialRetryStrategyProvider.IMPLEMENTATION_KEY));
         Assert.assertNotNull("base_delay_ms not defined", retryOptions.get(ExponentialRetryStrategy.BASE_DELAY_MS_KEY));
@@ -48,7 +51,7 @@ public class YamlJobConfigurationTest {
         Assert.assertThat(provider.get(), CoreMatchers.instanceOf(ExponentialRetryStrategy.class));
 
         // empty retry option leads to NoRetry strategy
-        provider = RetryStrategyProvider.create(new JobConfiguration.RetryOptions());
+        provider = RetryStrategyProvider.create(new LinkedHashMap());
         Assert.assertThat(provider.get(), CoreMatchers.sameInstance(RetryStrategy.NoRetry.INSTANCE));
 
         // null retry option leads to NoRetry strategy

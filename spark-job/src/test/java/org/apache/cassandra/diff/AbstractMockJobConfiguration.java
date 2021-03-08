@@ -78,7 +78,7 @@ public abstract class AbstractMockJobConfiguration implements JobConfiguration {
     }
 
     @Override
-    public RetryOptions retryOptions() {
+    public Map<String, String> retryOptions() {
         throw uoe;
     }
 }

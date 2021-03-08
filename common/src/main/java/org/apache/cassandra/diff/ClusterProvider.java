@@ -25,6 +25,9 @@ import java.util.Map;
 import com.datastax.driver.core.Cluster;
 
 public interface ClusterProvider extends Serializable {
+    String PREFIX = "diff.cluster";
+    String USERNAME_KEY = "cql_user";
+    String PASSWORD_KEY = "cql_password";
     String CLUSTER_PROVIDER_CLASS = "impl";
 
     void initialize(Map<String, String> conf, String identifier);

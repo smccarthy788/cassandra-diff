@@ -7,10 +7,6 @@ import java.util.function.Function;
 
 import com.datastax.driver.core.Cluster;
 
-import static org.apache.cassandra.diff.ContactPointsClusterProvider.PASSWORD_KEY;
-import static org.apache.cassandra.diff.ContactPointsClusterProvider.USERNAME_KEY;
-import static org.apache.cassandra.diff.ContactPointsClusterProvider.getEnv;
-
 public class AstraClusterProvider implements ClusterProvider {
     private static final String SECURE_CONNECT_BUNDLE_KEY = "secure_connect_bundle";
     private static final String CLUSTER_NAME_KEY = "cluster_name";
@@ -29,8 +25,8 @@ public class AstraClusterProvider implements ClusterProvider {
     public void initialize(Map<String, String> conf, String identifier) {
         secureConnectBundle = throwIfMissing(SECURE_CONNECT_BUNDLE_KEY, conf::get);
         clusterName = throwIfMissing(CLUSTER_NAME_KEY, conf::get);
-        username = throwIfMissing(USERNAME_KEY, k -> getEnv(identifier, k));
-        password = throwIfMissing(PASSWORD_KEY, k -> getEnv(identifier, k));
+        username = throwIfMissing(USERNAME_KEY, conf::get);
+        password = throwIfMissing(PASSWORD_KEY, conf::get);
     }
 
     @Override

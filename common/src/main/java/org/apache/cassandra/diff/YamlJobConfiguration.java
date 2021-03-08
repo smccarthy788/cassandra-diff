@@ -21,12 +21,7 @@ package org.apache.cassandra.diff;
 
 import java.io.InputStream;
 import java.math.BigInteger;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.CustomClassLoaderConstructor;
@@ -47,7 +42,7 @@ public class YamlJobConfiguration implements JobConfiguration {
     public Map<String, Map<String, String>> cluster_config;
     public String specific_tokens = null;
     public String disallowed_tokens = null;
-    public RetryOptions retry_options;
+    public Map<String,String> retry_options;
 
     public static YamlJobConfiguration load(InputStream inputStream) {
         Yaml yaml = new Yaml(new CustomClassLoaderConstructor(YamlJobConfiguration.class,
@@ -103,7 +98,7 @@ public class YamlJobConfiguration implements JobConfiguration {
         return metadata_options;
     }
 
-    public RetryOptions retryOptions() {
+    public Map<String, String> retryOptions() {
         return retry_options;
     }
 
@@ -138,6 +133,7 @@ public class YamlJobConfiguration implements JobConfiguration {
                ", consistency_level='" + consistency_level + '\'' +
                ", metadata_options=" + metadata_options +
                ", cluster_config=" + cluster_config +
+               ", retry_options=" + retry_options +
                '}';
     }
 

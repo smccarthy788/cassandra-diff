@@ -65,6 +65,7 @@ public class DiffJob {
         JavaSparkContext sc = new JavaSparkContext(spark.sparkContext());
         String configFile = SparkFiles.get(args[0]);
         YamlJobConfiguration configuration = YamlJobConfiguration.load(new FileInputStream(configFile));
+        logger.info("Configuration: " + configuration.toString());
         DiffJob diffJob = new DiffJob();
         diffJob.run(configuration, sc);
         spark.stop();

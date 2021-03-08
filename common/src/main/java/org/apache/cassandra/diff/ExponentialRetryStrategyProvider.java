@@ -1,5 +1,6 @@
 package org.apache.cassandra.diff;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import com.google.common.base.Preconditions;
@@ -11,7 +12,7 @@ import static org.apache.cassandra.diff.ExponentialRetryStrategyProvider.Exponen
 import static org.apache.cassandra.diff.ExponentialRetryStrategyProvider.ExponentialRetryStrategy.TOTAL_DELAY_MS_KEY;
 
 public class ExponentialRetryStrategyProvider extends RetryStrategyProvider {
-    public ExponentialRetryStrategyProvider(JobConfiguration.RetryOptions retryOptions) {
+    public ExponentialRetryStrategyProvider(Map<String,String> retryOptions) {
         super(retryOptions);
     }
 
