@@ -1,5 +1,7 @@
 package org.apache.cassandra.diff;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -46,7 +48,7 @@ public class ExponentialRetryStrategyTest {
 
     @Test
     public void testToString() {
-        ExponentialRetryStrategyProvider provider = new ExponentialRetryStrategyProvider(new JobConfiguration.RetryOptions());
+        ExponentialRetryStrategyProvider provider = new ExponentialRetryStrategyProvider(retryOptions(1000,1800000 ));
         String output = provider.get().toString();
         Assert.assertEquals("ExponentialRetryStrategy(baseDelayMs: 1000, totalDelayMs: 1800000, currentAttempts: 0)",
                             output);
@@ -91,8 +93,8 @@ public class ExponentialRetryStrategyTest {
         }
     }
 
-    private JobConfiguration.RetryOptions retryOptions(long baseDelayMs, long totalDelayMs) {
-        return new JobConfiguration.RetryOptions() {{
+    private Map<String,String> retryOptions(long baseDelayMs, long totalDelayMs) {
+        return new LinkedHashMap<String,String>() {{
             put(ExponentialRetryStrategy.BASE_DELAY_MS_KEY, String.valueOf(baseDelayMs));
             put(ExponentialRetryStrategy.TOTAL_DELAY_MS_KEY, String.valueOf(totalDelayMs));
         }};

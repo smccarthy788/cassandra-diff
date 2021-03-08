@@ -92,12 +92,8 @@ public interface JobConfiguration extends Serializable {
      * Note that it is different than cassandra java driver's {@link com.datastax.driver.core.policies.RetryPolicy},
      * which is evaluated at the Netty worker threads.
      */
-    RetryOptions retryOptions();
+    Map<String, String> retryOptions();
 
     Map<String, String> clusterConfig(String identifier);
-
-    // Just an alias
-    public static class RetryOptions extends HashMap<String, String> {
-    }
 
 }

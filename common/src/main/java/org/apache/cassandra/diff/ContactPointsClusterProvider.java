@@ -24,9 +24,7 @@ import java.util.Map;
 import com.datastax.driver.core.Cluster;
 
 public class ContactPointsClusterProvider implements ClusterProvider {
-    private static final String PREFIX = "diff.cluster";
-    protected static final String USERNAME_KEY = "cql_user";
-    protected static final String PASSWORD_KEY = "cql_password";
+
     private static final String CONTACT_POINTS_KEY = "contact_points";
     private static final String PORT_KEY = "port";
     private static final String CLUSTER_KEY = "name";
